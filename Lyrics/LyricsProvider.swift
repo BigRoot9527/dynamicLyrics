@@ -10,12 +10,12 @@ import Foundation
 
 class LyricsProvider
 {
-    lazy var lyricsString: String = lyricsOfSong()
+    lazy var rawLyrics: String = lyricsOfSong()
     
-    func arrayOfLyrics() -> [String]
+    func lyricsArray() -> [String]
     {
         var array: [String] = []
-        lyricsString.enumerateLines { line, _ in
+        rawLyrics.enumerateLines { line, _ in
             array.append(line)
         }
         return array

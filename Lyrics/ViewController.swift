@@ -12,25 +12,31 @@ class ViewController: UIViewController
 {
     
     @IBOutlet weak var lyricsScrollView: UIScrollView!
-    private var gradientLayer: CAGradientLayer = CAGradientLayer()
+    //gradientLayer
+    private var gradientMaskLayer: CAGradientLayer = CAGradientLayer()
+    private let fadePercentage: Double = 0.2
+    //KKTextLayer
     private var textLayerArray: [KKTextLayer] = []
     private let heightForLyricsLine: CGFloat = 30.0
-    private let fadePercentage: Double = 0.2
+    private let textLayerFontSize: CGFloat = 16
+    //playing
     private var playingLineIndex: Int = 0
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
         setupTextLayer()
-        setuplyricsScrollView()
+        setupLyricsScrollView()
         setupGradientLayer()
     }
 
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
-        lyricsScrollView.contentSize = CGSize(width: lyricsScrollView.frame.width, height: heightForLyricsLine * CGFloat(textLayerArray.count))
-        updateGradientLayerFrame()
+        lyricsScrollView.contentSize = CGSize(
+                width: lyricsScrollView.frame.width,
+                height: heightForLyricsLine * CGFloat(textLayerArray.count)
+        )
         for (index, element) in textLayerArray.enumerated() {
             let x: CGFloat = lyricsScrollView.bounds.minX
             let y: CGFloat = heightForLyricsLine * CGFloat(index)
@@ -38,24 +44,16 @@ class ViewController: UIViewController
             let w: CGFloat = lyricsScrollView.bounds.width
             element.frame = CGRect(x: x, y: y, width: w, height: h)
         }
-    }
-    
-    private func setupGradientLayer()
-    {
-        let transparent = UIColor.clear.cgColor
-        let opaque = self.view.backgroundColor!.cgColor
-        gradientLayer.colors = [transparent, opaque, opaque, transparent]
-        gradientLayer.locations = [0, NSNumber(floatLiteral: fadePercentage), NSNumber(floatLiteral: 1 - fadePercentage), 1]
-        self.lyricsScrollView.layer.mask = gradientLayer
+        updateGradientLayerFrame()
     }
     
     private func setupTextLayer()
     {
         let provider = LyricsProvider()
-        provider.arrayOfLyrics().forEach { lyric in
+        provider.lyricsArray().forEach { lyric in
             let textLayer = KKTextLayer()
             textLayer.string = lyric
-            textLayer.fontSize = 16
+            textLayer.fontSize = textLayerFontSize
             textLayer.alignmentMode = kCAAlignmentCenter
             textLayer.backgroundColor = lyricsScrollView.backgroundColor?.cgColor
             textLayerArray.append(textLayer)
@@ -63,7 +61,16 @@ class ViewController: UIViewController
         }
     }
     
-    private func setuplyricsScrollView()
+    private func setupGradientLayer()
+    {
+        let transparent = UIColor.clear.cgColor
+        let opaque = self.view.backgroundColor!.cgColor
+        gradientMaskLayer.colors = [transparent, opaque, opaque, transparent]
+        gradientMaskLayer.locations = [0, NSNumber(floatLiteral: fadePercentage), NSNumber(floatLiteral: 1 - fadePercentage), 1]
+        self.lyricsScrollView.layer.mask = gradientMaskLayer
+    }
+    
+    private func setupLyricsScrollView()
     {
         lyricsScrollView.showsVerticalScrollIndicator = false
         lyricsScrollView.delegate = self
@@ -74,13 +81,31 @@ class ViewController: UIViewController
     {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        gradientLayer.frame = CGRect(
+        gradientMaskLayer.frame = CGRect(
             x: 0,
             y: lyricsScrollView.contentOffset.y,
             width: lyricsScrollView.bounds.width,
             height: lyricsScrollView.bounds.height
         )
         CATransaction.commit()
+    }
+
+    @IBAction func didTapPlayButton(_ sender: UIButton)
+    {
+        Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self](_) in
+            self?.playNextLine()
+        }
+        sender.isEnabled = false
+    }
+    
+    private func playNextLine()
+    {
+        let index:Int = playingLineIndex < textLayerArray.count ? playingLineIndex : 0
+        highlightLyrics(onLine: index)
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self](_) in
+            self?.unHighlightLyrics(onLine: index)
+        }
+        playingLineIndex = index + 1
     }
     
     private func highlightLyrics(onLine line:Int)
@@ -98,28 +123,6 @@ class ViewController: UIViewController
             return
         }
         textLayerArray[line].isHighlight = false
-    }
-
-    @IBAction func didTapPlayButton(_ sender: UIButton)
-    {
-//        unHighlightLyrics(onLine: counter - 1)
-//        highlightLyrics(onLine: counter)
-//        counter += 1
-        
-        Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self](_) in
-            self?.playNextLine()
-        }
-        sender.isEnabled = false
-    }
-    
-    private func playNextLine()
-    {
-        let index:Int = playingLineIndex < textLayerArray.count ? playingLineIndex : 0
-        highlightLyrics(onLine: index)
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self](_) in
-            self?.unHighlightLyrics(onLine: index)
-        }
-        playingLineIndex = index + 1
     }
 }
 
