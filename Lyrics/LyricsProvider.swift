@@ -10,20 +10,22 @@ import Foundation
 
 class LyricsProvider
 {
-    lazy var rawLyrics: String = lyricsOfSong()
-    
     func lyricsArray() -> [String]
     {
         var array: [String] = []
         rawLyrics.enumerateLines { line, _ in
             array.append(line)
         }
-        return array
+        if array.count > 0 {
+            return array
+        } else {
+            return [noLyricsMessage]
+        }
     }
     
-    private func lyricsOfSong() -> String
-    {
-        let string =
+    let noLyricsMessage: String = "Error: No Lyrics"
+    
+    var rawLyrics: String =
     """
     菸一支一支一支的點
     酒一杯一杯一杯的乾
@@ -51,8 +53,5 @@ class LyricsProvider
     有一天 咱都老 帶某子逗陣
     浪子回頭
     """
-        return string
-    }
-    
-    
+
 }

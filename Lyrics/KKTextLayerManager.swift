@@ -11,14 +11,15 @@ import UIKit
 
 class KKTextLayerManager
 {
-    var textLayerArray: [KKTextLayer] = []
+    private(set) var textLayerArray: [KKTextLayer] = []
     var totalHeightOfLayers: CGFloat = 0
-    private let provider = LyricsProvider()
+    private var provider: LyricsProvider
     private let configuration: KKTextLayerConfiguration
     private var tempOriginPoint: CGPoint
     
-    init(textLayerConfiguration: KKTextLayerConfiguration, staredOriginInScrollView: CGPoint)
+    init(lyricProvider: LyricsProvider = LyricsProvider(), textLayerConfiguration: KKTextLayerConfiguration, staredOriginInScrollView: CGPoint)
     {
+        self.provider = lyricProvider
         self.configuration = textLayerConfiguration
         self.tempOriginPoint = staredOriginInScrollView
         createTextLayers()

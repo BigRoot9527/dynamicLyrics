@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E65D44E32151FE3300560573 /* TestLyricsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65D44E22151FE3300560573 /* TestLyricsProvider.swift */; };
+		E65D44E52152031800560573 /* TestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65D44E42152031800560573 /* TestManager.swift */; };
 		E6D39F112150999700C3C58C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F102150999700C3C58C /* AppDelegate.swift */; };
 		E6D39F132150999700C3C58C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F122150999700C3C58C /* ViewController.swift */; };
 		E6D39F162150999700C3C58C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6D39F142150999700C3C58C /* Main.storyboard */; };
 		E6D39F182150999800C3C58C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6D39F172150999800C3C58C /* Assets.xcassets */; };
 		E6D39F1B2150999800C3C58C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6D39F192150999800C3C58C /* LaunchScreen.storyboard */; };
-		E6D39F262150999800C3C58C /* LyricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F252150999800C3C58C /* LyricsTests.swift */; };
 		E6D39F312150A40E00C3C58C /* LyricsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F302150A40E00C3C58C /* LyricsProvider.swift */; };
 		E6D39F372150B90F00C3C58C /* GradientScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F362150B90F00C3C58C /* GradientScrollView.swift */; };
 		E6D39F3B2150F45B00C3C58C /* KKTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F3A2150F45B00C3C58C /* KKTextLayer.swift */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E65D44E22151FE3300560573 /* TestLyricsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLyricsProvider.swift; sourceTree = "<group>"; };
+		E65D44E42152031800560573 /* TestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestManager.swift; sourceTree = "<group>"; };
 		E6D39F0D2150999700C3C58C /* Lyrics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lyrics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D39F102150999700C3C58C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6D39F122150999700C3C58C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,7 +42,6 @@
 		E6D39F1A2150999800C3C58C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E6D39F1C2150999800C3C58C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6D39F212150999800C3C58C /* LyricsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LyricsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6D39F252150999800C3C58C /* LyricsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsTests.swift; sourceTree = "<group>"; };
 		E6D39F272150999800C3C58C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6D39F302150A40E00C3C58C /* LyricsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsProvider.swift; sourceTree = "<group>"; };
 		E6D39F362150B90F00C3C58C /* GradientScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientScrollView.swift; sourceTree = "<group>"; };
@@ -105,7 +107,8 @@
 		E6D39F242150999800C3C58C /* LyricsTests */ = {
 			isa = PBXGroup;
 			children = (
-				E6D39F252150999800C3C58C /* LyricsTests.swift */,
+				E65D44E22151FE3300560573 /* TestLyricsProvider.swift */,
+				E65D44E42152031800560573 /* TestManager.swift */,
 				E6D39F272150999800C3C58C /* Info.plist */,
 			);
 			path = LyricsTests;
@@ -226,7 +229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6D39F262150999800C3C58C /* LyricsTests.swift in Sources */,
+				E65D44E32151FE3300560573 /* TestLyricsProvider.swift in Sources */,
+				E65D44E52152031800560573 /* TestManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
