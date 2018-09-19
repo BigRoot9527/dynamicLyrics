@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LyricsProvider
+struct LyricsProvider
 {
     func lyricsArray() -> [String]
     {

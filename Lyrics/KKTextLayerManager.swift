@@ -13,7 +13,7 @@ class KKTextLayerManager
 {
     private(set) var textLayerArray: [KKTextLayer] = []
     var totalHeightOfLayers: CGFloat = 0
-    private var provider: LyricsProvider
+    private let provider: LyricsProvider
     private let configuration: KKTextLayerConfiguration
     private var tempOriginPoint: CGPoint
     
