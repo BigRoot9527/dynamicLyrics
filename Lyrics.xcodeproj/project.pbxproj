@@ -17,6 +17,7 @@
 		E6D39F372150B90F00C3C58C /* GradientScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F362150B90F00C3C58C /* GradientScrollView.swift */; };
 		E6D39F3B2150F45B00C3C58C /* KKTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F3A2150F45B00C3C58C /* KKTextLayer.swift */; };
 		E6D39F3D2150FC2C00C3C58C /* ExtensionUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F3C2150FC2C00C3C58C /* ExtensionUIScrollView.swift */; };
+		E6D39F3F2151E7D700C3C58C /* KKTextLayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D39F3E2151E7D700C3C58C /* KKTextLayerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		E6D39F362150B90F00C3C58C /* GradientScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientScrollView.swift; sourceTree = "<group>"; };
 		E6D39F3A2150F45B00C3C58C /* KKTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KKTextLayer.swift; sourceTree = "<group>"; };
 		E6D39F3C2150FC2C00C3C58C /* ExtensionUIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIScrollView.swift; sourceTree = "<group>"; };
+		E6D39F3E2151E7D700C3C58C /* KKTextLayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KKTextLayerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				E6D39F102150999700C3C58C /* AppDelegate.swift */,
-				E6D39F302150A40E00C3C58C /* LyricsProvider.swift */,
 				E6D39F3A2150F45B00C3C58C /* KKTextLayer.swift */,
+				E6D39F302150A40E00C3C58C /* LyricsProvider.swift */,
+				E6D39F3E2151E7D700C3C58C /* KKTextLayerManager.swift */,
 				E6D39F3C2150FC2C00C3C58C /* ExtensionUIScrollView.swift */,
 				E6D39F122150999700C3C58C /* ViewController.swift */,
 				E6D39F142150999700C3C58C /* Main.storyboard */,
@@ -213,6 +216,7 @@
 				E6D39F132150999700C3C58C /* ViewController.swift in Sources */,
 				E6D39F3B2150F45B00C3C58C /* KKTextLayer.swift in Sources */,
 				E6D39F112150999700C3C58C /* AppDelegate.swift in Sources */,
+				E6D39F3F2151E7D700C3C58C /* KKTextLayerManager.swift in Sources */,
 				E6D39F372150B90F00C3C58C /* GradientScrollView.swift in Sources */,
 				E6D39F3D2150FC2C00C3C58C /* ExtensionUIScrollView.swift in Sources */,
 			);

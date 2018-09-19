@@ -9,8 +9,26 @@
 import Foundation
 import UIKit
 
+struct KKTextLayerConfiguration
+{
+    let fontSize: CGFloat
+    let backgroundColor: CGColor
+    let foregroundColor: CGColor
+    let highlightBgColor: CGColor
+    let highlightFgColor: CGColor
+    let layerWidth: CGFloat
+    let layerHeight: CGFloat
+}
+
+
 class KKTextLayer: CATextLayer
 {
+    var configuration: KKTextLayerConfiguration?
+    {
+        didSet{
+            setup()
+        }
+    }
     
     var isHighlight: Bool
     {
@@ -36,8 +54,17 @@ class KKTextLayer: CATextLayer
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(in ctx: CGContext) {
-        
+    private func setup()
+    {
+        guard let config = self.configuration else { return }
+        self.fontSize = config.fontSize
+        self.foregroundColor = config.foregroundColor
+        self.backgroundColor = config.backgroundColor
+        self.bounds = CGRect(x: 0, y: 0, width: config.layerWidth, height: config.layerHeight)
+    }
+    
+    override func draw(in ctx: CGContext)
+    {
         let height: CGFloat = self.bounds.size.height
         let fontSize: CGFloat = self.fontSize
         let yDiff = (height - fontSize) / 2 - fontSize / 6
@@ -49,11 +76,13 @@ class KKTextLayer: CATextLayer
 
     private func changeColor()
     {
-        guard let text = self.string as? String, text.count > 0 else {
-            return
-        }
-        self.backgroundColor = isHighlight ? UIColor.white.cgColor : UIColor.clear.cgColor
-        self.foregroundColor = isHighlight ? UIColor.black.cgColor : UIColor.white.cgColor
+        guard
+            let config = self.configuration,
+            let text = self.string as? String,
+            text.count > 0
+            else { return }
+        self.backgroundColor = isHighlight ? config.highlightBgColor : config.backgroundColor
+        self.foregroundColor = isHighlight ? config.highlightFgColor : config.foregroundColor
     }
     
 }

@@ -16,16 +16,14 @@ class ViewController: UIViewController
     private var gradientMaskLayer: CAGradientLayer = CAGradientLayer()
     private let fadePercentage: Double = 0.2
     //KKTextLayer
-    private var textLayerArray: [KKTextLayer] = []
-    private let heightForLyricsLine: CGFloat = 30.0
-    private let textLayerFontSize: CGFloat = 16
+    private let staredPointYInScrollView: CGFloat = 0
+    private var manager: KKTextLayerManager!
     //playing
     private var playingLineIndex: Int = 0
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        setupTextLayer()
         setupLyricsScrollView()
         setupGradientLayer()
     }
@@ -33,31 +31,28 @@ class ViewController: UIViewController
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
+        setupManager()
         lyricsScrollView.contentSize = CGSize(
                 width: lyricsScrollView.frame.width,
-                height: heightForLyricsLine * CGFloat(textLayerArray.count)
+                height: manager.totalHeightOfLayers
         )
-        for (index, element) in textLayerArray.enumerated() {
-            let x: CGFloat = lyricsScrollView.bounds.minX
-            let y: CGFloat = heightForLyricsLine * CGFloat(index)
-            let h: CGFloat = heightForLyricsLine
-            let w: CGFloat = lyricsScrollView.bounds.width
-            element.frame = CGRect(x: x, y: y, width: w, height: h)
-        }
         updateGradientLayerFrame()
     }
     
-    private func setupTextLayer()
+    private func setupManager()
     {
-        let provider = LyricsProvider()
-        provider.lyricsArray().forEach { lyric in
-            let textLayer = KKTextLayer()
-            textLayer.string = lyric
-            textLayer.fontSize = textLayerFontSize
-            textLayer.alignmentMode = kCAAlignmentCenter
-            textLayer.backgroundColor = lyricsScrollView.backgroundColor?.cgColor
-            textLayerArray.append(textLayer)
-            lyricsScrollView.layer.addSublayer(textLayer)
+        let config = KKTextLayerConfiguration(
+            fontSize: 16,
+            backgroundColor: lyricsScrollView.backgroundColor!.cgColor,
+            foregroundColor: UIColor.white.cgColor,
+            highlightBgColor: UIColor.white.cgColor,
+            highlightFgColor: UIColor.black.cgColor,
+            layerWidth: lyricsScrollView.bounds.width,
+            layerHeight: 30)
+        let staredOrigin = lyricsScrollView.bounds.origin
+        manager = KKTextLayerManager(textLayerConfiguration: config, staredOriginInScrollView: staredOrigin)
+        manager.textLayerArray.forEach { layer in
+            lyricsScrollView.layer.addSublayer(layer)
         }
     }
     
@@ -100,29 +95,13 @@ class ViewController: UIViewController
     
     private func playNextLine()
     {
-        let index:Int = playingLineIndex < textLayerArray.count ? playingLineIndex : 0
-        highlightLyrics(onLine: index)
+        let index: Int = playingLineIndex < manager.textLayerArray.count ? playingLineIndex : 0
+        guard let rect = manager.frameOfHighlightLyrics(onLine: index) else { return }
+        lyricsScrollView.scrollRectToCenter(rect: rect, animated: true)
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self](_) in
-            self?.unHighlightLyrics(onLine: index)
+            let _ = self?.manager.frameOfUnhighlightLyrics(onLine: index)
         }
         playingLineIndex = index + 1
-    }
-    
-    private func highlightLyrics(onLine line:Int)
-    {
-        guard line >= 0 && line < textLayerArray.count else {
-            return
-        }
-        textLayerArray[line].isHighlight = true
-        lyricsScrollView.scrollRectToCenter(rect: textLayerArray[line].frame, animated: true)
-    }
-    
-    private func unHighlightLyrics(onLine line:Int)
-    {
-        guard line >= 0 && line < textLayerArray.count else {
-            return
-        }
-        textLayerArray[line].isHighlight = false
     }
 }
 
